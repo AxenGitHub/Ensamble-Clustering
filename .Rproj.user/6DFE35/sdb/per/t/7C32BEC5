@@ -1,0 +1,18 @@
+{
+    "contents" : "library(mclust) #Expectation Maximization package\nlibrary(cluster.datasets)\n\nrockM <- as.matrix(rock)\nmodelName = \"EEE\"\ndata = iris[,1:4]\nmodelName <- Mclust(data)$modelName\nz = unmap(iris[,5])\nmsEst <- mstep(modelName, data, z)\nnames(msEst)\nmodelName = msEst$modelName\nparameters = msEst$parameters\nem(modelName, data, parameters)\nparameters$variance$G <- 4\n\n\n\n#idea, use the expextation maximization to generate the clusters\nclus<-em(modelName, data, parameters)\nclusNum <- clus$G\nnumObs <- clus$n\nclusMatrix <- clus$z\n\nfor (iter in 1:numObs){\n  maxVal <- max(clus$z[iter,])\n  clus$z[iter,] <- (clus$z[iter,] == maxVal)+0\n}\n\nres <- mclustBIC(data, G=1:14, modelNames=modelName)\nresMclust <-Mclust(data, G=4)\nvector <- clus$z[,1]\nlength(vector)\nclusMatrix\ndim(clusMatrix)\n",
+    "created" : 1432131334696.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3750697094",
+    "id" : "7C32BEC5",
+    "lastKnownWriteTime" : 1432218319,
+    "path" : "~/Documents/DataScientist/NCSU - North Carolina/Courses/Data Mining/Cluster/Ensamble Clustering/Expected Maximization.R",
+    "project_path" : "Expected Maximization.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 0,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
